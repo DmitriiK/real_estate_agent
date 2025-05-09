@@ -1,7 +1,7 @@
 
 from sqlalchemy import create_engine, inspect, text
 
-from settings import SQLConfig
+from .settings import SQLConfig
 engine = create_engine(SQLConfig.get_connection_string())
 
 
@@ -20,7 +20,7 @@ def get_table_metadata(table_name: str, schema='public') -> list[dict]:
     """
 
     inspector = inspect(engine)
-
+    print("table_name", table_name)
     columns = inspector.get_columns(table_name, schema=schema) 
     # Get column comments from PostgreSQL's information_schema
     with engine.connect() as connection:

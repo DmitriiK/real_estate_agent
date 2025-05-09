@@ -1,6 +1,6 @@
 import unittest
 from  pprint import pprint
-from sql_communicator import engine, get_table_metadata
+from text2SQLagent.sql_communicator import engine, get_table_metadata
 from sqlalchemy import inspect
 from sqlalchemy.sql import text
 
