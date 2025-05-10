@@ -9,3 +9,5 @@ wheels/
 # Virtual environments
 .venv
 agent/.env
+.DS_Store
+.env
