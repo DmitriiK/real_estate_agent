@@ -1,13 +1,13 @@
-
 from google.adk.agents import Agent
+from google.adk.tools.agent_tool import AgentTool
 
 from src.settings import MAIN_LLM_MODEL
+from src.agents.text_2_SQL_agent.agent import root_agent as text2SQL
 
-def text2SQL(human_query: str) -> dict:
+def text2SQL_test_stub(human_query: str) -> dict:
     """translates human query to SQL query"""
     # This is a placeholder function for test
     return {
-        'status': 'success',
         'sql_query': f"SELECT * FROM v_emlak_data_mart WHERE description LIKE '%{human_query}%' LIMIT 10;",
 
     }
@@ -60,7 +60,7 @@ rent_agent = Agent(
 
     You have access to the following tools, that are supposed to be used in chain, 'text2SQL'->'execute_sql_query'.
     Use 'text2SQL' tool to convert the client's request into a SQL query. 
-    Take the value of the 'sql_query' key from the result of text2SQL tool and pass it to the execute_sql_query tool.
+    Take the output result of text2SQL tool and pass it to the execute_sql_query tool as valid sql, striping all formatting if exists.
     Once you get the result from the execute_sql_query tool, check if there are any errors in the result.
     If there are errors, inform the client about them and ask him to clarify his request.
     If there are no errors, check if the 'rows_from_db' key in the result is not empty.
@@ -69,5 +69,6 @@ rent_agent = Agent(
     After you present the table to the client, ask him if he wants to continue the search or if he is satisfied with the options presented.
     If the client is satisfied with the options presented or don't want to continue, say goodbye and pass control to the parent agent.
     """,
-    tools=[text2SQL, execute_sql_query],
+    tools=[AgentTool(agent=text2SQL), execute_sql_query],
 )
+
