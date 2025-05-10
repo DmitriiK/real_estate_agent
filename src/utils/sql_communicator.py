@@ -1,7 +1,7 @@
 
 from sqlalchemy import create_engine, inspect, text
 
-from .settings import SQLConfig
+from src.settings import SQLConfig
 engine = create_engine(SQLConfig.get_connection_string())
 
 

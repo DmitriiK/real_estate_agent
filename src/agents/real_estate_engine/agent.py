@@ -1,5 +1,5 @@
 from google.adk.agents import Agent
-from .sql_communicator import get_table_metadata
+from  src.utils.sql_communicator import get_table_metadata
 # Create the root agent
 view_name = "v_emlak_data_mart"
 table_metadata = get_table_metadata(view_name)
