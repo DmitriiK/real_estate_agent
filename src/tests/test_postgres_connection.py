@@ -1,19 +1,11 @@
 import unittest
 from  pprint import pprint
-from src.utils.sql_communicator import engine, get_table_metadata
+from src.utils.sql_communicator import engine, get_table_metadata, execute_select_query
 from sqlalchemy import inspect
-from sqlalchemy.sql import text
+
 
 class TestSQL(unittest.TestCase):
 
-    def test_connection(self):
-        try:
-            # Attempt to connect to the PostgreSQL server using SQLAlchemy
-            with engine.connect() as connection:
-                result = connection.execute(text("SELECT 1 as xx;")).fetchone()
-                self.assertEqual(result[0], 1, "PostgreSQL connection test failed.")
-        except Exception as e:
-            self.fail(f"Connection to PostgreSQL server failed: {e}")
 
     def test_list_tables(self):
         try:
@@ -35,6 +27,17 @@ class TestSQL(unittest.TestCase):
             pprint( metadata, width=40)
         except Exception as e:
             self.fail(f"Failed to retrieve metadata for table '{table_name}': {e}")
+
+    def test_execute_select_query(self):
+        query = "SELECT 1 as test_column;"
+        try:
+            result = execute_select_query(query)
+            self.assertIsInstance(result, list, "Result should be a list.")
+            self.assertGreater(len(result), 0, "Result list should not be empty.")
+            self.assertIn('test_column', result[0], "Result dictionary should contain 'test_column'.")
+            self.assertEqual(result[0]['test_column'], 1, "The value of 'test_column' should be 1.")
+        except Exception as e:
+            self.fail(f"Failed to execute select query: {e}")
 
 if __name__ == "__main__":
     unittest.main()

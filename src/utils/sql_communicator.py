@@ -1,4 +1,3 @@
-
 from sqlalchemy import create_engine, inspect, text
 
 from src.settings import SQLConfig
@@ -51,4 +50,19 @@ def get_table_metadata(table_name: str, schema='public') -> list[dict]:
         result.append(column_info)
     
     return result
+
+def execute_select_query(query: str, params: dict = None) -> list[dict]:
+    """
+    Execute a SQL SELECT query and return the result as a list of dictionaries.
+
+    Args:
+        query (str): The SQL SELECT query to execute.
+        params (dict, optional): Parameters to bind to the query. Defaults to None.
+
+    Returns:
+        list[dict]: Query results as a list of dictionaries.
+    """
+    with engine.connect() as connection:
+        result = connection.execute(text(query), params or {})
+        return [row._asdict() for row in result]  # Use _asdict() to convert row to dictionary
 
