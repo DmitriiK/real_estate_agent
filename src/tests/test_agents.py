@@ -1,6 +1,6 @@
 import unittest
 from src.agents.agent_runner import run_agent
-from src.agents.real_estate_agent.agent import root_agent
+from src.agents.text_2_SQL_agent.agent import root_agent
 
 class TestAgent(unittest.TestCase):
 

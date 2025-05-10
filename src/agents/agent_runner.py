@@ -6,7 +6,7 @@ from google.adk.agents import BaseAgent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
-from src.agents.real_estate_agent.agent import root_agent
+from src.agents.text_2_SQL_agent.agent import root_agent
 
 
 load_dotenv()
