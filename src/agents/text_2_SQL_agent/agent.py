@@ -1,11 +1,13 @@
 from google.adk.agents import Agent
 from  src.utils.sql_communicator import get_table_metadata
+from src.settings import MAIN_LLM_MODEL
+
 # Create the root agent
 view_name = "v_emlak_data_mart"
 table_metadata = get_table_metadata(view_name)
 root_agent = Agent(
     name="text_2_SQL_agent",
-    model="gemini-2.0-flash",
+    model=MAIN_LLM_MODEL,
     description="Human text to PostgreSQL SQL query converter",
     instruction=f"""
     You are a database assistant that converts human text into SQL queries for PostgreSQL.

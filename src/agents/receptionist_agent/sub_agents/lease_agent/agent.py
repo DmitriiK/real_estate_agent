@@ -1,6 +1,8 @@
 from google.adk.agents import Agent
 from google.adk.tools.tool_context import ToolContext
 
+from src.settings import MAIN_LLM_MODEL
+
 
 def get_nerd_joke(topic: str, tool_context: ToolContext) -> dict:
     """Get a nerdy joke about a specific topic."""
@@ -29,7 +31,7 @@ def get_nerd_joke(topic: str, tool_context: ToolContext) -> dict:
 # Create the funny nerd agent
 lease_agent = Agent(
     name="lease_agent",
-    model="gemini-2.0-flash",
+    model=MAIN_LLM_MODEL,
     description="An agent that tells nerdy jokes about various topics.",
     instruction="""
     You are a funny nerd agent that tells nerdy jokes about various topics.

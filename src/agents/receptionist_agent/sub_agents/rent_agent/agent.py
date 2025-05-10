@@ -2,6 +2,7 @@ from datetime import datetime
 
 from google.adk.agents import Agent
 
+from src.settings import MAIN_LLM_MODEL
 
 def get_stock_price(ticker: str) -> dict:
     """Retrieves current stock price and saves to session state."""
@@ -21,7 +22,7 @@ def get_stock_price(ticker: str) -> dict:
 # Create the root agent
 rent_agent = Agent(
     name="rent_agent",
-    model="gemini-2.0-flash",
+    model=MAIN_LLM_MODEL,
     description="An agent that can look up stock prices and track them over time.",
     instruction="""
     You are a helpful stock market assistant that helps users track their stocks of interest.

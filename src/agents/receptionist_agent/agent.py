@@ -3,11 +3,11 @@ from google.adk.agents import Agent
 
 from .sub_agents.rent_agent.agent import rent_agent
 from .sub_agents.lease_agent.agent import lease_agent
-
+from src.settings import MAIN_LLM_MODEL
 
 root_agent = Agent(
     name="receptionist_agent",
-    model="gemini-2.0-flash",
+    model=MAIN_LLM_MODEL,
     description=" agent",
     instruction="""
     You're a real estate agent's office receptionist. 

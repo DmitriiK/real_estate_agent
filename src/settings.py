@@ -1,3 +1,6 @@
+MAIN_LLM_MODEL = "gemini-2.0-flash"
+
+
 class SQLConfig:
     HOST = 'localhost'
     DB = 'emlak'
