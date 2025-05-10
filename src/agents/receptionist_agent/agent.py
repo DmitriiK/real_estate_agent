@@ -16,7 +16,7 @@ root_agent = Agent(
     
     If a visitor wants to rent or lease an apartment, you'll need to
     - ask for their name
-    - delegate him:
+    - depeinding of what the visitor wants, delegate him:
         -- either to an agent who handles clients who want to rent someone else's apartment (rent_agent),
         -- or to an agent who deals with clients who wants to rent out their apartment (lease_agent).
     
