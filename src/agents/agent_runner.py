@@ -22,8 +22,7 @@ def run_agent(agent: BaseAgent, user_message: str,  initial_state: dict = None, 
         session_id=SESSION_ID,
         state=initial_state,
     )
-    print("CREATED NEW SESSION:")
-    print(f"\tSession ID: {SESSION_ID}")
+    print(f"CREATED NEW SESSION:{SESSION_ID=}")
 
     runner = Runner(
         agent=agent,
@@ -40,11 +39,7 @@ def run_agent(agent: BaseAgent, user_message: str,  initial_state: dict = None, 
             if event.content and event.content.parts:
                 final_responses.append(event.content.parts[0].text)
 
-    print("==== Session Event Exploration ====")
     session = session_service_stateful.get_session(app_name=app_name, user_id=user_id, session_id=SESSION_ID)
-
-    # Log final Session state
-    print("=== Final Session State ===")
     return final_responses, session.state.items()
 
 if __name__ == "__main__":
