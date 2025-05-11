@@ -2,7 +2,7 @@ from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
 from src.settings import MAIN_LLM_MODEL
-from src.agents.text_2_SQL_agent.agent import root_agent as text2SQL
+from src.agents.text2SQL.agent import root_agent as text2SQL
 from src.utils.sql_communicator import execute_select_query
 from src.utils.utils import make_json_serializable
 

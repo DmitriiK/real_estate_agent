@@ -6,8 +6,9 @@ from src.settings import MAIN_LLM_MODEL
 view_name = "v_emlak_data_mart"
 limit_rows = 10
 table_metadata = get_table_metadata(view_name)
+# to make this work under adk web the variablel should be named as 'root_agent'
 root_agent = Agent(
-    name="text_2_SQL_agent",
+    name="text2SQL",
     model=MAIN_LLM_MODEL,
     description="Human text to PostgreSQL SQL query converter",
     instruction=f"""

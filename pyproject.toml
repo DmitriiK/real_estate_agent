@@ -8,4 +8,5 @@ dependencies = [
     "google-adk>=0.4.0",
     "psycopg2-binary>=2.9.10",
     "sqlalchemy>=2.0.40",
+    "sqlglot>=26.17.1",
 ]
