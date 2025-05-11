@@ -1,20 +1,22 @@
 from google.adk.agents import Agent
 from google.adk.tools.tool_context import ToolContext
 
-from .sub_agents.rent_agent.agent import rent_agent
-from .sub_agents.lease_agent.agent import lease_agent
+from src.agents.session_schema import SK_USER_NAME
 from src.settings import MAIN_LLM_MODEL
+
+from .sub_agents.lease_agent.agent import lease_agent
+from .sub_agents.rent_agent.agent import rent_agent
 
 
 def add_user_data_to_session(user_name: str, tool_context: ToolContext) -> dict:
     """addding of user data to session state
     Args:
-        user_name (dict): name or the current user
+        user_name (str): name or the current user
         tool_context (ToolContext): Context for accessing and updating session state
     Returns:
         dict: status of the operation
     """
-    tool_context.state['user_name'] = user_name
+    tool_context.state[SK_USER_NAME] = user_name
     return {"status": "success"}
 
 root_agent = Agent(
