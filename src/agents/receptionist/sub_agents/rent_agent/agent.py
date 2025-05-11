@@ -1,7 +1,7 @@
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
-from src.settings import MAIN_LLM_MODEL
+from src.settings import MAIN_LLM_MODEL, MAX_NUMBER_OF_ROWS
 from src.agents.text2SQL.agent import root_agent as text2SQL
 from src.utils.sql_communicator import execute_select_query
 from src.utils.utils import make_json_serializable
@@ -35,8 +35,8 @@ def execute_sql_query(sql_query: str) -> dict:
         """
     try:
         rows = execute_select_query(sql_query)
-        if len(rows) > 100:
-            rows= rows[:100]
+        if len(rows) > MAX_NUMBER_OF_ROWS:
+            rows= rows[:MAX_NUMBER_OF_ROWS]
             print("Warning: The result set is too large, only the first 100 rows are returned.")
             # otherwise in will cause error in ADK WEB for datetime and decimal types
         make_json_serializable(rows)

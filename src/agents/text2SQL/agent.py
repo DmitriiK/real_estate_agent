@@ -1,10 +1,9 @@
 from google.adk.agents import Agent
 from  src.utils.sql_communicator import get_table_metadata
-from src.settings import MAIN_LLM_MODEL
+from src.settings import MAIN_LLM_MODEL, MAX_NUMBER_OF_ROWS
 
 # Create the root agent
 view_name = "v_emlak_data_mart"
-limit_rows = 10
 table_metadata = get_table_metadata(view_name)
 # to make this work under adk web the variablel should be named as 'root_agent'
 root_agent = Agent(
@@ -23,6 +22,6 @@ root_agent = Agent(
     You should not include any comments or explanations in the SQL query.
     You SQL query should be SELECT statement only, it should never be an INSERT, UPDATE, DROP, TRUNCATE or DELETE statement. 
     In case when you query contains some numeric ID as a first column, use ORDER by this 'id' DESC
-    You should limit the number of rows in the result to {limit_rows} row by applying of 'LIMIT ..' to the generated SQL query.
+    You should limit the number of rows in the result to {MAX_NUMBER_OF_ROWS} row by applying of 'LIMIT ..' to the generated SQL query.
     """,
 )

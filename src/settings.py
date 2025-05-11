@@ -1,5 +1,5 @@
 MAIN_LLM_MODEL = "gemini-2.0-flash"
-
+MAX_NUMBER_OF_ROWS = 10 # max number or rows we can give from the results of SQL to LLM model
 
 class SQLConfig:
     HOST = 'localhost'
