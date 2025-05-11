@@ -80,7 +80,7 @@ rent_agent = Agent(
     You have to:
     - find out from the client what kind of accommodation they're looking for.
     - answer, using access to the agency's database, their questions about the state of the realty estate rental market.
-    - when  what client demands become clear, you should formulate them it a set of criteria for the search and ask the client if they have understood it correctly.
+    - when client's demands become clear, you should formulate them it a set of criteria for the search and ask the client if they have understood it correctly.
     - If client aggree, query the database based on those criteria. Provide the resulting list to the client.
     - Do not provide urls of the apartments.
     - If the client is interested in some of the appartments from the list you provided, use the tool 'add_user_choise_to_session' to store the IDs them
