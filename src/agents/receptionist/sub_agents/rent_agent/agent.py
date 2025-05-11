@@ -1,10 +1,13 @@
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
+from google.adk.tools.tool_context import ToolContext
 
 from src.settings import MAIN_LLM_MODEL, MAX_NUMBER_OF_ROWS
 from src.agents.text2SQL.agent import root_agent as text2SQL
 from src.utils.sql_communicator import execute_select_query
 from src.utils.utils import make_json_serializable
+
+
 
 def text2SQL_test_stub(human_query: str) -> dict:
     """translates human query to SQL query"""
@@ -54,10 +57,12 @@ def execute_sql_query(sql_query: str) -> dict:
 rent_agent = Agent(
     name="rent_agent",
     model=MAIN_LLM_MODEL,
-    description="An agency working with the clients who want to rent an apartment.",
+    description="An agent, working with the clients who want to rent an apartment.",
     instruction="""
     You are an employee at a real estate agency working with the clients who want to rent an apartment.
-
+    Your name is Donald. 
+    The name of your client is {user_name}.
+    Once the client comes to you, you should greet him by name, introduce yourself and ask how you can help him.
     You have to:
     - find out from the client what kind of accommodation they're looking for.
     - answer, using access to the agency's database, their questions about the state of the realty estate rental market.
@@ -71,7 +76,7 @@ rent_agent = Agent(
        - Once you get the result from the execute_sql_query tool, check if there are any errors in the result.
        - If there are errors, inform the client about them and ask him to clarify his request.
        - If there are no errors, check if the 'rows_from_db' key in the result is not empty.
-       - If this list is not empty, format it as a table, using pseudografic and present it to the client
+       - If this list is not empty, format it as a table and present it to the client
        - If the list is empty, inform the client that there are no options that meet his criteria.
     - After you present the results from DB to the client, ask him if he wants to continue the search or if he is satisfied with the options presented.
     - If the client is satisfied with the options presented or don't want to continue, say goodbye and pass control to the parent agen, receptionist.

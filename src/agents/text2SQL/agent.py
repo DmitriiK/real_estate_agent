@@ -1,10 +1,10 @@
 from google.adk.agents import Agent
-from  src.utils.sql_communicator import get_table_metadata
-from src.settings import MAIN_LLM_MODEL, MAX_NUMBER_OF_ROWS
 
-# Create the root agent
-view_name = "v_emlak_data_mart"
-table_metadata = get_table_metadata(view_name)
+from  src.utils.sql_communicator import get_table_metadata
+from src.settings import MAIN_LLM_MODEL, MAX_NUMBER_OF_ROWS, VIEW_NAME
+
+
+table_metadata = get_table_metadata(VIEW_NAME)
 # to make this work under adk web the variablel should be named as 'root_agent'
 root_agent = Agent(
     name="text2SQL",
@@ -15,7 +15,7 @@ root_agent = Agent(
     You will receive a natural language question and you need to convert it into a SQL query.
     You will also receive the table metadata and the database connection string.
     You should use the tables and views metadata to understand the structure of the database and generate the SQL query.
-    Currently you have access to the following view: {view_name}.
+    Currently you have access to the following view: {VIEW_NAME}.
     The view has the following columns: {table_metadata}.
     As a result you should produce just a string with valid PostgreSQL SQL query.
     It supposed to be sent to SQL server as is, so it SHOULD NOT CONTAIN any formatting like "```sql...```".
