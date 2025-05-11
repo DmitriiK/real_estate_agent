@@ -1,5 +1,5 @@
 import uuid
-
+from typing import Optional, Tuple, List
 from dotenv import load_dotenv
 
 from google.adk.agents import BaseAgent
@@ -11,7 +11,14 @@ from src.agents.text2SQL.agent import root_agent
 
 load_dotenv()
 
-def run_agent(agent: BaseAgent, user_message: str,  initial_state: dict = None, app_name: str = 'test_app', user_id = 'test_user') -> None:
+
+def run_agent(
+    agent: BaseAgent,
+    user_input: str,
+    initial_state: dict = None,
+    app_name: str = "test_app",
+    user_id="test_user",
+) -> Tuple[List[str], Optional[object]]:
     # Create a new session service to store state
     session_service_stateful = InMemorySessionService()
 
@@ -30,17 +37,22 @@ def run_agent(agent: BaseAgent, user_message: str,  initial_state: dict = None, 
         session_service=session_service_stateful,
     )
 
-    new_message = types.Content(
-        role="user", parts=[types.Part(text=user_message)]
-    )
+    new_message = types.Content(role="user", parts=[types.Part(text=user_input)])
     final_responses = []
-    for event in runner.run(user_id=user_id, session_id=SESSION_ID, new_message=new_message, ):
+    for event in runner.run(
+        user_id=user_id,
+        session_id=SESSION_ID,
+        new_message=new_message,
+    ):
         if event.is_final_response():
             if event.content and event.content.parts:
                 final_responses.append(event.content.parts[0].text)
 
-    session = session_service_stateful.get_session(app_name=app_name, user_id=user_id, session_id=SESSION_ID)
+    session = session_service_stateful.get_session(
+        app_name=app_name, user_id=user_id, session_id=SESSION_ID
+    )
     return final_responses, session.state.items()
+
 
 if __name__ == "__main__":
     agent = root_agent
@@ -48,7 +60,9 @@ if __name__ == "__main__":
     initial_state = {
         "user_name": "Brandon Hancock",
     }
-    final_responses, final_session_state = run_agent(agent, user_message, initial_state)
+    final_responses, final_session_state = run_agent(
+        agent, user_input=user_message, initial_state=initial_state
+    )
     print("Final Responses:")
     for response in final_responses:
         print(response)
