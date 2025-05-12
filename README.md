@@ -26,7 +26,13 @@ real_estate_agent/
 │   │   ├── utils.py
 │   │   └── sql_communicator.py
 │   ├── agents/             # AI agents
-│   │   ├── receptionist/   # Receptionist agent
+        ── receptionist/   # Receptionist agent
+        │   ├── agent.py
+        │   ├── sub_agents
+        │   │   ├── rent_agent
+        │   │   │   └── agent.py
+        │   │   └── sales_agent
+        │   │       └── agent.py
 │   │   ├── text2SQL/       # Text-to-SQL agent
 │   │   └── shared_agent_tools.py
 │   ├── tests/              # Unit tests
