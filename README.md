@@ -1,9 +1,11 @@
 # Real Estate Agent AI Assistant on Google Agent Development Kit
 
 ## Overview
-This project is an AI-powered assistant designed for a real estate agency. The assistant helps potential buyers and renters find their ideal property by engaging them in a conversation. It gathers user preferences such as location, budget, property type, and other criteria, and provides relevant property options from the agency's database.
-It leverages the functionality of [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/).
-Data, which agent currently is working with, is scraped from [Hepsiemlak](https://www.hepsiemlak.com/en/), - Turkish realy portal.
+This project is an AI-powered assistant designed for a real estate agency. The assistant helps potential buyers and renters find their ideal property by engaging them in a conversation. It gathers user preferences such as location, budget, property type, and other criteria, and provides relevant property options from the agency's database. 
+
+It leverages the functionality of the [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/). The data the agent currently works with is scraped from [Hepsiemlak](https://www.hepsiemlak.com/en/), a Turkish real estate portal. 
+
+Currently, it supports rental searches for apartments only.
 
 ## Features
 - **Interactive Conversations**: The assistant engages users in a natural language conversation to understand their preferences.
@@ -86,7 +88,9 @@ graph TD
    ```
 2. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv create
+   source .venv/bin/activate
+   uv install
    ```
 3. Configure the database connection in `src/settings.py`.
 
@@ -104,18 +108,6 @@ Run unit tests using the following command:
 python -m unittest discover -s ./src/tests -p "*test*.py"
 ```
 
-## Usage
-1. Start the receptionist agent to greet clients and determine their needs.
-2. Use the rent agent to search for rental properties or the sales agent for payment calculations.
-3. The agents interact with the database to fetch and present relevant property data.
-
-## Contributing
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Submit a pull request with a detailed description of your changes.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
 ## Acknowledgments
 - [**Google ADK**](https://google.github.io/adk-docs/): Used for building AI agents. 
 - **[SQLAlchemy](https://www.sqlalchemy.org/)**: For database interactions.
