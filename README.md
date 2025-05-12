@@ -1,18 +1,19 @@
 # Real Estate Agent AI Assistant on Google Agent Development Kit
 
 ## Overview
-This project is an AI-powered assistant designed for a real estate agency. The assistant helps potential buyers and renters find their ideal property by engaging them in a conversation. It gathers user preferences such as location, budget, property type, and other criteria, and provides relevant property options from the agency's database. 
+This project is an AI-powered assistant designed for a real estate agency. The assistant helps potential buyers and renters find their ideal property by engaging them in a conversation. It gathers user preferences such as location, budget, property type, and other criteria, and provides relevant property options from the agency's database.
 
-It leverages the functionality of the [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/). The data the agent currently works with is scraped from [Hepsiemlak](https://www.hepsiemlak.com/en/), a Turkish realty estate portal. 
+It leverages the functionality of the [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/). The data the agent currently works with is scraped from [Hepsiemlak](https://www.hepsiemlak.com/en/), a Turkish real estate portal.
 
 Currently, it supports rental searches for apartments only.
 
 ## Features
-- **Interactive Conversations**: The assistant engages users in a natural language conversation to understand their preferences.
+- **Interactive Conversations**: The assistant engages users in natural language conversations to understand their preferences.
 - **Property Search**: Supports filtering properties based on location, budget, property type, and other attributes.
 - **SQL Query Generation**: Converts user queries into SQL statements to fetch data from the database.
 - **Agent System**: Includes specialized agents for renting and sales processes.
 - **Session Management**: Maintains session state to track user interactions and preferences.
+
 
 ## Project Structure
 The project is organized as follows:
@@ -74,6 +75,15 @@ graph TD
 ### Tests
 - Comprehensive unit tests are provided for utilities, SQL interactions, and agents.
 
+## Details of Implementation
+- In addition to the agents described above, the project includes a `Text2SQLAgent`, a specialized agent used by other agents as a tool for generating SQL queries from natural language.
+- The `text2SQL` and `rent_agent` components pull metadata from the database to inject it into the system prompt. To make this work, it is crucial to have comments on the columns of the views and tables used by the agents. Example for Postgres:
+    ```SQL
+    COMMENT ON COLUMN v_emlak_data_mart.district_name IS 'Name of the local district (mahalle in Turkey), like "Liman" for Konyaaltı district, where the property is located';
+    COMMENT ON COLUMN v_emlak_data_mart.room IS 'Number of bedrooms in the property';
+    ```
+- The system retrieves a distinct set of geographical attributes (province, sub-province, district) and injects them into the prompt for the rent agent. This facilitates communication with the user regarding their desired property location.
+
 ## Setup
 
 ### Prerequisites
@@ -92,7 +102,7 @@ graph TD
    source .venv/bin/activate
    uv install
    ```
-3. Configure the database connection in `src/settings.py`.
+3. Configure the database connection, LLM model name (currently it is using gemini-2.0-flash)in `src/settings.py`.
 
 ### Running the Application
 1. Launch the web UI for agents:
@@ -100,7 +110,10 @@ graph TD
    ```bash
    adk web
    ```
-2. Interact with the agents through the web interface.
+2. Open ADK Web in browser, choose agent from the list and start conversation. Note: each folder under "Agents" folder here will show up in ADK web as agent
+3. Interact with the agents through the web interface.
+4. In order to understand what is going on 'under the hood', explore events, state in the adk UI, 
+![alt text](images/readme_1.png)
 
 ### Running Tests
 Run unit tests using the following command:
@@ -108,15 +121,17 @@ Run unit tests using the following command:
 python -m unittest discover -s ./src/tests -p "*test*.py"
 ```
 
-## Acknowledgments
+## Dependencies
 - [**Google ADK**](https://google.github.io/adk-docs/): Used for building AI agents. 
 - **[SQLAlchemy](https://www.sqlalchemy.org/)**: For database interactions.
 - **[SQLGlot](https://github.com/tobymao/sqlglot)**: For SQL parsing and validation.
-- [**DEZC-FinalProject**](https://github.com/DmitriiK/DEZC-FinalProject): my DE project, where I have ETL for the population of DB.
+- [**DEZC-FinalProject**](https://github.com/DmitriiK/DEZC-FinalProject): my DE project, where I have ETL for the population of DB, and where SQL schema is defined.
 ## Known issues
  - search does not work for the words with specific Turkish symbols, like 'ş, ı'
  - payment agent for some reason provide data as json, not tabular, at least under Gemini
  ## Thought about further development
  - Add RAG semanitic search using vector fields in Postgres
+ --Teach it to use IDs columns to filter out data, not names only as it is now.
+ - Persist user data between sessions
  - Leverage geo data to search by distnanse to sea or whatever
  - Integrate to Telegram agent
