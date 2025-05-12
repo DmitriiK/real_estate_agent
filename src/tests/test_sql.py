@@ -22,7 +22,7 @@ class TestSQL(unittest.TestCase):
             metadata = get_table_metadata(table_name)
             self.assertIsInstance(metadata, list, "Metadata should be a list.")
             self.assertGreater(len(metadata), 0, "Metadata list should not be empty.")
-            expected_keys = {'name', 'type', 'comment'}
+            expected_keys = {'name', 'type', 'column_description'}
             self.assertTrue(expected_keys.issubset(metadata[0].keys()), "Metadata dictionary is missing expected keys.")
             pprint( metadata, width=40)
         except Exception as e:

@@ -45,7 +45,7 @@ COMMENT ON COLUMN v_emlak_data_mart.floor_count IS 'Total number of floors in th
 COMMENT ON COLUMN v_emlak_data_mart.is_furnished IS 'Boolean indicating whether the property is furnished';
 COMMENT ON COLUMN v_emlak_data_mart.price IS 'Price of the property in turkish lira';
 COMMENT ON COLUMN v_emlak_data_mart.sqm_netsqm IS 'Net square meters of the property';
-
+COMMENT ON COLUMN v_emlak_data_mart.age IS 'age of the building, how many years ago it was built';
 COMMENT ON COLUMN v_emlak_data_mart.sqm_price IS 'Price per square meter (calculated as price divided by net square meters)';
 COMMENT ON COLUMN v_emlak_data_mart.room_category_id IS 'Foreign key referencing the room category dimension';
 COMMENT ON COLUMN v_emlak_data_mart.room_category IS 'Description of the room category, format "N+L", like "2+1" means an apartment with 2 bedrooms plus 1 living room. Living room usually a kitchen  ';

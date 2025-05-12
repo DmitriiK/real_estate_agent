@@ -24,13 +24,19 @@ def get_table_metadata(table_name: str, schema='public') -> list[dict]:
     # Get column comments from PostgreSQL's information_schema
     with engine.connect() as connection:
         comment_query = text("""
-            SELECT col.column_name, pgd.description
-            FROM pg_catalog.pg_statio_all_tables AS st
-            INNER JOIN pg_catalog.pg_description pgd ON pgd.objoid = st.relid
-            INNER JOIN information_schema.columns col 
-                ON col.table_schema = st.schemaname AND col.table_name = st.relname 
-                AND col.ordinal_position = pgd.objsubid
-            WHERE col.table_schema = :schema AND col.table_name = :table_name;
+            SELECT
+                a.attname as column_name,
+                d.description as column_description
+            FROM
+                pg_catalog.pg_class c
+                JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+                JOIN pg_catalog.pg_attribute a ON a.attrelid = c.oid
+                LEFT JOIN pg_catalog.pg_description d ON d.objoid = c.oid AND d.objsubid = a.attnum
+            WHERE
+                c.relname = :table_name
+                AND n.nspname = :schema 
+                AND a.attnum > 0
+                AND NOT a.attisdropped         
         """)
         
         comment_results = connection.execute(comment_query, 
@@ -40,14 +46,14 @@ def get_table_metadata(table_name: str, schema='public') -> list[dict]:
         comments_dict = {row[0]: row[1] for row in comment_results}
     
     # Combine column info with comments
-    result = []
-    for col in columns:
-        column_info = {
+    result = [
+        {
             'name': col['name'],
             'type': str(col['type']),
-            'comment': comments_dict.get(col['name'], None)
+            'column_description': comments_dict.get(col['name'], None)
         }
-        result.append(column_info)
+        for col in columns
+    ]
     
     return result
 
