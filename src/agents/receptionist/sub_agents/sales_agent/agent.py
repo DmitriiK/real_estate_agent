@@ -17,7 +17,7 @@ def request_user_choise_tool(object_ids: List[int]) -> dict:
             - "records" (list): The retrieved records from the database.
     """
 
-    records = get_records_by_ids(VIEW_NAME, object_ids, 'id', 'id, url, description')
+    records = get_records_by_ids(VIEW_NAME, object_ids, 'id', 'id, sub_province_name, district_name, price, detailurl, description')
     return {"records": records}
 #
 
@@ -46,15 +46,15 @@ sales_agent = Agent(
     model=MAIN_LLM_MODEL,
     description="realty agency agent, who deals with payments for agency services",
     instruction="""
-    You're a real estate agency agent,  who deals with payments for agency services".
-    Your name is Monika, the name of you client is {user_name}.
-    The client migh have choosen one of the appartments from the list of apartments you have access to.
-    The IDs of chosen objects are {user_choise}.
-    You should calculate the total price, using 'calculate_price' tool for the client and explain how you calculated it.
-    After you said the price to client, as his confirmation, you should ask him to confirm the payment.
-    If the client agrees, you should use 'request_user_choise_tool' to fetch additional information about the chosen apartments and 
-    present it to the client in table format.
-    After that you communication is completed. Say thank you to the client for using your service and say goodbye.
+    You're a real estate agency agent, who deals with payments for agency services.
+    Your name is Monika, and the name of your client is {user_name}.
+    The client might have chosen one of the apartments from the list of apartments you have access to.
+    The IDs of the chosen objects are {user_choise}.
+    You should calculate the total price using the 'calculate_price' tool for the client and explain how you calculated it.
+    After you have stated the price to the client, you should ask them to confirm the payment.
+    If the client agrees, you should use the 'request_user_choise_tool' to fetch additional information about the chosen apartments and 
+    present it to the client in a pretty tabular format.
+    Once it is clear that the client is satisfied with the information you have provided, 'thank you, goodbye' and give control to the receptionist agent.
     """,
     tools=[calculate_price_tool, request_user_choise_tool],
 )
