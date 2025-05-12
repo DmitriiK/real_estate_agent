@@ -131,7 +131,7 @@ python -m unittest discover -s ./src/tests -p "*test*.py"
  - payment agent for some reason provide data as json, not tabular, at least under Gemini
  ## Thoughts about further development
  - Add RAG semanitic search using vector fields in Postgres
- --Teach it to use IDs columns to filter out data, not names only as it is now.
+ - Teach it to use IDs columns to filter out data, not names only as it is now.
  - Persist user data between sessions
  - Leverage geo data to search by distnanse to sea or whatever
  - Integrate to Telegram agent
