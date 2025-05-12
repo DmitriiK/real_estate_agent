@@ -1,7 +1,8 @@
-# Real Estate Agent AI Assistant
+# Real Estate Agent AI Assistant on Google Agent Development Kit
 
 ## Overview
 This project is an AI-powered assistant designed for a real estate agency. The assistant helps potential buyers and renters find their ideal property by engaging them in a conversation. It gathers user preferences such as location, budget, property type, and other criteria, and provides relevant property options from the agency's database.
+It leverages the functionality of [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/).
 
 ## Features
 - **Interactive Conversations**: The assistant engages users in a natural language conversation to understand their preferences.
@@ -114,11 +115,10 @@ python -m unittest discover -s ./src/tests -p "*test*.py"
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
 ## Acknowledgments
-- **Google ADK**: Used for building AI agents.
-- **SQLAlchemy**: For database interactions.
-- **SQLGlot**: For SQL parsing and validation.
+- [**Google ADK**](https://google.github.io/adk-docs/): Used for building AI agents. 
+- **[SQLAlchemy](https://www.sqlalchemy.org/)**: For database interactions.
+- **[SQLGlot](https://github.com/tobymao/sqlglot)**: For SQL parsing and validation.
 - [**DEZC-FinalProject**](https://github.com/DmitriiK/DEZC-FinalProject): my DE project, where I have ETL for the population of DB.
 ## Known issues
  - search does not work for the words with specific Turkish symbols, like 'ş, ı'
