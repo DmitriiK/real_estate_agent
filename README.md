@@ -39,7 +39,6 @@ real_estate_agent/
 │   │   ├── test_utils.py
 │   │   ├── test_sql.py
 │   │   └── test_agents.py
-└── .vscode/                # VS Code settings
 ```
 
 ## Key Components
@@ -49,6 +48,16 @@ real_estate_agent/
 - **Rent Agent**: Assists clients in finding rental properties based on their preferences.
 - **Sales Agent**: Handles payment calculations and provides detailed information about selected properties.
 - **Text-to-SQL Agent**: Converts natural language queries into SQL statements for database interaction.
+
+### Agent Relationships
+Below is a mermaid diagram illustrating the relationships between the agents:
+
+```mermaid
+graph TD
+    ReceptionistAgent[Receptionist Agent] --> RentAgent[Rent Agent]
+    ReceptionistAgent --> SalesAgent[Sales Agent]
+    RentAgent --> Text2SQLAgent[Text-to-SQL Agent]
+```
 
 ### Utilities
 - **`utils.py`**: Contains helper functions like `make_json_serializable` and `safe_format`.
