@@ -3,6 +3,7 @@
 ## Overview
 This project is an AI-powered assistant designed for a real estate agency. The assistant helps potential buyers and renters find their ideal property by engaging them in a conversation. It gathers user preferences such as location, budget, property type, and other criteria, and provides relevant property options from the agency's database.
 It leverages the functionality of [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/).
+Data, which agent currently is working with, is scraped from [Hepsiemlak](https://www.hepsiemlak.com/en/), - Turkish realy portal.
 
 ## Features
 - **Interactive Conversations**: The assistant engages users in a natural language conversation to understand their preferences.
