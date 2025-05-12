@@ -1,6 +1,6 @@
 import unittest
 from  pprint import pprint
-from src.utils.sql_communicator import engine, get_table_metadata, execute_select_query
+from src.utils.sql_communicator import engine, get_table_metadata, execute_select_query, get_records_by_ids
 from sqlalchemy import inspect
 
 
@@ -38,6 +38,22 @@ class TestSQL(unittest.TestCase):
             self.assertEqual(result[0]['test_column'], 1, "The value of 'test_column' should be 1.")
         except Exception as e:
             self.fail(f"Failed to execute select query: {e}")
+
+    def test_get_records_by_ids(self):
+        input_ids = [1, 2, 3]
+        try:
+            records = get_records_by_ids('v_emlak_data_mart', input_ids)
+            self.assertIsInstance(records, list, "Records should be a list.")
+            self.assertGreater(len(records), 0, "Records list should not be empty.")
+            for record in records:
+                self.assertIn('id', record, "Each record should have an 'id' key.")
+            retrieved_ids = {record['id'] for record in records}
+            self.assertEqual(retrieved_ids, set(input_ids), "The set of 'id' values in records should match the input_ids.")
+            print(records)
+        except Exception as e:
+            self.fail(f"Failed to retrieve records by IDs: {e}")
+
+
 
 if __name__ == "__main__":
     unittest.main()

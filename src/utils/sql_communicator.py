@@ -66,3 +66,22 @@ def execute_select_query(query: str, params: dict = None) -> list[dict]:
         result = connection.execute(text(query), params or {})
         return [row._asdict() for row in result]  # Use _asdict() to convert row to dictionary
 
+def get_records_by_ids(table_name: str, ids: list[int], id_column_name: str ='id', columns_to_fetch: str = '*') -> list[dict]:
+    """
+    Fetch records from a table where the ID is in the provided list of IDs.
+
+    Args:
+        table_name (str): The name of the table to query.
+        ids (list[int]): A list of integer IDs to filter the query.
+
+    Returns:
+        list[dict]: Query results as a list of dictionaries.
+    """
+    if not ids:
+        return []  # Return an empty list if no IDs are provided
+
+    # Create a parameterized query
+    query = f"SELECT {columns_to_fetch} FROM {table_name} WHERE {id_column_name} IN :ids"
+    params = {"ids": tuple(ids)}  # Use a tuple for SQLAlchemy parameter binding
+
+    return execute_select_query(query, params)
