@@ -1,9 +1,10 @@
 import unittest
 from datetime import datetime
 from decimal import Decimal
-from src.utils.utils import make_json_serializable
+from src.utils.utils import make_json_serializable, safe_format
 
-class TestMakeJsonSerializable(unittest.TestCase):
+
+class TestUtils(unittest.TestCase):
 
     def test_make_json_serializable(self):
         data = [
@@ -19,6 +20,12 @@ class TestMakeJsonSerializable(unittest.TestCase):
         ]
 
         self.assertEqual(data, expected)
+
+
+    def test_safe_format(self):
+        input_string = "Hello, {name}! Today is {day}."
+        formatted_string = safe_format(input_string, name="Alice")
+        self.assertEqual(formatted_string, "Hello, Alice! Today is {day}.")
 
 if __name__ == "__main__":
     unittest.main()
