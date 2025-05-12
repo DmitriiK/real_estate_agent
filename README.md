@@ -104,3 +104,11 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - **Google ADK**: Used for building AI agents.
 - **SQLAlchemy**: For database interactions.
 - **SQLGlot**: For SQL parsing and validation.
+- [**DEZC-FinalProject**](https://github.com/DmitriiK/DEZC-FinalProject): my DE project, where I have ETL for the population of DB.
+## Known issues
+ - search does not work for the words with specific Turkish symbols, like 'ş, ı'
+ - payment agent for some reason provide data as json, not tabular, at least under Gemini
+ ## Thought about further development
+ - Add RAG semanitic search using vector fields in Postgres
+ - Leverage geo data to search by distnanse to sea or whatever
+ - Integrate to Telegram agent
