@@ -1,15 +1,16 @@
 
 -- drop view v_emlak_data_mart
+--drop view v_emlak_by_districts
 -- select * from v_emlak_data_mart
 create or replace view v_emlak_data_mart as 
 select  eml.id, 
 	eml.createdate, 
-  	eml.city_id,  dc.city_name
-   ,eml.country_id, c.country_name
-   ,eml.district_id,  d.district_name, 
-	rc.room,  rc.living_room as livingroom
-	,eml.room_category_id, rc.room_category 
-	,dft.floor_type_name , eml.floor_count,
+  	eml.city_id as province_id,  dc.city_name as province_name, -- Antalya, Isparta, ..
+    eml.country_id as sub_province_id, c.country_name as  sub_province_name, -- Konialty, Kepez, Alanya
+    eml.district_id,  d.district_name, 
+	rc.room,  rc.living_room as livingroom,
+	eml.room_category_id, rc.room_category,
+	dft.floor_type_name , eml.floor_count,
 	is_furnished,  
 	eml.price , eml.sqm_netsqm, 
 	--eml.maplocation_lat, eml.maplocation_lon,
@@ -32,10 +33,10 @@ select  eml.id,
     -- 
 COMMENT ON COLUMN v_emlak_data_mart.id IS 'Primary identifier for the real estate property';
 COMMENT ON COLUMN v_emlak_data_mart.createdate IS 'Date when the property record was created';
-COMMENT ON COLUMN v_emlak_data_mart.city_id IS 'Foreign key referencing d_cities.city_id';
-COMMENT ON COLUMN v_emlak_data_mart.city_name IS 'Name of the province("ile" in Turkey) where the property is located, like Antalya, Izmir, ';
-COMMENT ON COLUMN v_emlak_data_mart.country_id IS 'Foreign key referencing d_countries.country_id';
-COMMENT ON COLUMN v_emlak_data_mart.country_name IS 'Name of the district of the city, like Kepez, Konyaalti for Antalya city,  where the property is located';
+COMMENT ON COLUMN v_emlak_data_mart.province_id IS 'Foreign key referencing d_cities.city_id';
+COMMENT ON COLUMN v_emlak_data_mart.province_name IS 'Name of the province("ile" in Turkey) where the property is located, like Antalya, Izmir, ';
+COMMENT ON COLUMN v_emlak_data_mart.sub_province_id IS 'Foreign key referencing d_countries.country_id';
+COMMENT ON COLUMN v_emlak_data_mart.sub_province_name IS 'Name of the district of the city, like Kepez, Konyaalti for Antalya city,  where the property is located';
 COMMENT ON COLUMN v_emlak_data_mart.district_id IS 'Foreign key referencing d_districts.district_id';
 COMMENT ON COLUMN v_emlak_data_mart.district_name IS 'Name of the local district (mahalle in Turkey), like "Liman" for Koniyaalti district, where the property is located';
 COMMENT ON COLUMN v_emlak_data_mart.room IS 'Number of bed rooms in the property';
