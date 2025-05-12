@@ -129,7 +129,7 @@ python -m unittest discover -s ./src/tests -p "*test*.py"
 ## Known issues
  - search does not work for the words with specific Turkish symbols, like 'ş, ı'
  - payment agent for some reason provide data as json, not tabular, at least under Gemini
- ## Thought about further development
+ ## Thoughts about further development
  - Add RAG semanitic search using vector fields in Postgres
  --Teach it to use IDs columns to filter out data, not names only as it is now.
  - Persist user data between sessions
